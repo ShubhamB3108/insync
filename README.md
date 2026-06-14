@@ -1,1 +1,1 @@
-# inSync
+# insync
