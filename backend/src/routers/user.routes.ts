@@ -7,11 +7,6 @@ const userRoute = Router();
 userRoute.route("/register").post(registerUser)
 userRoute.route("/login").post(loginUser)
 
-userRoute.route('/current-user').get(verifyJWT,(req,res)=>{
-    res.status(200).json({
-        message:"jwt working"
-    })
-})
 userRoute.route('/user-details').get(verifyJWT,getUserDetails)
 userRoute.route('/refresh-token').post(refreshAccessToken)
 
