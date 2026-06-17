@@ -49,7 +49,8 @@ export const refreshAccessToken = AsyncHandler(async (req:Request,res:Response)=
 
    const options = {
         httpOnly:true,
-        secure:true
+        secure:true,
+        samesite: "none" as const
     }
 
    res.status(200).json(
@@ -64,7 +65,7 @@ export const refreshAccessToken = AsyncHandler(async (req:Request,res:Response)=
     )
    )
    .cookie("accessToken",userAccessToken,options)
-   .cookie("refreshtToken",userRefreshToken,options)
+   .cookie("refreshToken",userRefreshToken,options)
 })
 
 
@@ -128,11 +129,11 @@ export const registerUser = AsyncHandler(
     const createdUser = await User.findById(user._id)
       .select("-password -refreshToken");
 
-    const options = {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-
-    };
+   const options = {
+        httpOnly:true,
+        secure:true,
+        samesite: "none" as const
+    }
 
     res
       .status(201)
@@ -174,7 +175,8 @@ export const loginUser  = AsyncHandler(async (req:Request<{},{}, LoginBody>,res:
 
     const options = {
         httpOnly:true,
-        secure:true
+        secure:true,
+        samesite: "none" as const
     }
 
     res.status(200)
@@ -196,11 +198,11 @@ export const logoutUser = AsyncHandler(async (req:Request,res:Response):Promise<
             }
         )
 
-        const options ={
-            httpOnly:true,
-            secure:true   
-
-        }
+        const options = {
+        httpOnly:true,
+        secure:true,
+        samesite: "none" as const
+    }
 
         res.status(200)
         .clearCookie("accessToken",options)

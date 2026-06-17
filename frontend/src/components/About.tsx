@@ -25,7 +25,7 @@ const pillars = [
 
 export default function AboutPage() {
   return (
-    <main className="min-h-screen bg-black text-white selection:bg-zinc-800 selection:text-white antialiased">
+    <main id="about" className="min-h-screen bg-black text-white selection:bg-zinc-800 selection:text-white antialiased">
       {/* Structural layout wrapper matching the main layout metrics */}
       <motion.div 
         className="max-w-5xl mx-auto px-6 py-28 md:py-36 flex flex-col lg:flex-row gap-16 lg:gap-8 justify-between items-start"
