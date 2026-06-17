@@ -9,7 +9,7 @@ const server = http.createServer(app)
 
 export const io = new Server(server,{
     cors:{
-        origin: "https://insync-taupe.vercel.app",
+        origin: "https://insync-taupe.vercel.app/",
         credentials:true
     }
 })
