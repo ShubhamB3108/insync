@@ -7,6 +7,8 @@ export const OnboardingRoute = () => {
   const [user, setUser] = useState<any>(null);
 
   useEffect(() => {
+    
+
     const fetchUser = async () => {
       try {
         const res = await getUserDetails();

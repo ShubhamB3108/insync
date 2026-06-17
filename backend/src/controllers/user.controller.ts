@@ -50,10 +50,13 @@ export const refreshAccessToken = AsyncHandler(async (req:Request,res:Response)=
    const options = {
         httpOnly:true,
         secure:true,
-        samesite: "none" as const
+        samesite: "none"
     }
 
-   res.status(200).json(
+   res.status(200)
+   .cookie("accessToken",userAccessToken,options)
+   .cookie("refreshToken",userRefreshToken,options)
+   .json(
     new ApiResponse(
         200,
         {
@@ -132,7 +135,7 @@ export const registerUser = AsyncHandler(
    const options = {
         httpOnly:true,
         secure:true,
-        samesite: "none" as const
+        samesite: "none"
     }
 
     res
@@ -176,7 +179,7 @@ export const loginUser  = AsyncHandler(async (req:Request<{},{}, LoginBody>,res:
     const options = {
         httpOnly:true,
         secure:true,
-        samesite: "none" as const
+        samesite: "none"
     }
 
     res.status(200)
@@ -201,7 +204,7 @@ export const logoutUser = AsyncHandler(async (req:Request,res:Response):Promise<
         const options = {
         httpOnly:true,
         secure:true,
-        samesite: "none" as const
+        samesite: "none"
     }
 
         res.status(200)
