@@ -11,10 +11,11 @@ export const PublicRoute = () => {
     const token = localStorage.getItem("accessToken");
 
   if (!token) {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setLoading(false);
     return;
   }
-  
+
     const checkUser = async () => {
       try {
         const user = await getUserDetails();
