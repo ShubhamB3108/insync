@@ -131,7 +131,7 @@ export const registerUser = AsyncHandler(
     const options = {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: "lax" as const,
+
     };
 
     res
@@ -181,7 +181,7 @@ export const loginUser  = AsyncHandler(async (req:Request<{},{}, LoginBody>,res:
     .cookie("accessToken",userAccessToken,options)
     .cookie("refreshToken",userRefreshToken,options)
     .json(
-        new ApiResponse(200,{user:user,userAccessToken,userRefreshToken},"User logged Out succesfully")
+        new ApiResponse(200,{user:user,userAccessToken,userRefreshToken},"User logged In succesfully")
     )
 
 })
@@ -199,16 +199,30 @@ export const logoutUser = AsyncHandler(async (req:Request,res:Response):Promise<
         const options ={
             httpOnly:true,
             secure:true   
+
         }
 
         res.status(200)
+        .clearCookie("accessToken",options)
+        .clearCookie("refreshToken",options)
         .json(
             new ApiResponse(
                 200,"User Logged out Successfully"
             )
         )
-        .clearCookie("accessToken",options)
-        .clearCookie("refreshToken",options)
+        
+})
+
+export const getUserDetails = AsyncHandler(async (req:Request,res:Response)=>{
+    const user =  req.user!
+      res.status(200).json(
+        new ApiResponse(
+          200,
+          user,
+          'user details'
+        )
+      )
+
 })
 
 

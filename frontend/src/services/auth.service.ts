@@ -21,6 +21,7 @@ export interface User{
     firstName:string,
     email:string
     onBoarded:boolean
+    workspaceId:string
 }
 
 export interface AuthResponse{
@@ -50,4 +51,17 @@ export const loginUser = async (data:LoginBody) : Promise<AuthResponse> => {
     const response = await api.post<AuthResponse>(`/users/login`,data);
     
     return response.data
+}
+
+export const logoutUser = async (data:{workspaceId:string}) => {
+    
+    const response = await api.post<AuthResponse>(`/workspace/${data.workspaceId}/logout`,data);
+    
+    return response.data
+}
+
+export const getUserDetails = async ()=>{
+    const res = await api.get('/users/user-details')
+    
+    return res.data
 }

@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import Navbar from "../components/Header";
 import Herosection from "../components/Herosection";
 import Features from "../components/Feature";
+import AboutPage from "../components/About";
 
 const LandingPage = () => {
   return (
@@ -16,6 +17,7 @@ const LandingPage = () => {
       <Navbar />
       <Herosection />
       <Features />
+      <AboutPage />
     </motion.div>
   );
 };

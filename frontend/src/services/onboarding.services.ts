@@ -33,7 +33,7 @@ export const createWorkspace = async (data:createWorkspaceBody)=>{
 
 export const toggleOnBoardStatus = async ()=>{
     const response = await api.get('/workspace/onboard/toggleOnBoard-status');
-    console.log(response);
+    
     return response
 }
 

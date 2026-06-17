@@ -6,3 +6,9 @@ export const getWorkspaceName = async(data:{workspaceId:string}) => {
             
             return response.data
 }
+
+export const getMembers = async(data:{workspaceId:string}) =>{
+    const res = await api.post(`/workspace/${data.workspaceId}/get-members`,data)
+    
+    return res.data
+}

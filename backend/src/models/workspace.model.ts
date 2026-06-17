@@ -1,5 +1,5 @@
 import mongoose,{Schema,Document} from "mongoose";
-
+import bcrypt from 'bcrypt'
 export interface IWorkspace extends Document{
     name:string;
     workspaceId:string;
@@ -8,6 +8,7 @@ export interface IWorkspace extends Document{
     owner: mongoose.Types.ObjectId;
     members: mongoose.Types.ObjectId[];
     tasks:mongoose.Types.ObjectId[];
+    messages:mongoose.Types.ObjectId[];
 }
 
 const workspaceSchema:Schema = new mongoose.Schema<IWorkspace>({
@@ -44,6 +45,13 @@ const workspaceSchema:Schema = new mongoose.Schema<IWorkspace>({
             {
                 type:mongoose.Schema.Types.ObjectId,
                 ref:"Task"
+            }
+        ],
+
+        messages:[
+            {
+                type:mongoose.Schema.Types.ObjectId,
+                ref:"Message"
             }
         ]
         

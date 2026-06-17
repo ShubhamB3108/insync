@@ -2,6 +2,7 @@ import { useState } from "react";
 import {useNavigate } from "react-router-dom";
 import Insynclogo from "../components/Insynclogo";
 import { createWorkspace, toggleOnBoardStatus, urlAvailable } from "../services/onboarding.services";
+import { AlertTriangle } from "lucide-react";
 
 const WORKSPACE_TYPES = [
   {
@@ -60,6 +61,32 @@ export default function CreateWorkspace() {
         }
   }
 
+  const handleUrlChange = async (
+  e: React.ChangeEvent<HTMLInputElement>
+) => {
+  const value = e.target.value
+    .toLowerCase()
+    .replace(/[^a-z0-9-]/g, "");
+
+  setWorkspaceUrl(value);
+
+  if (!value) {
+    setAvailablestatus(false);
+    return;
+  }
+
+  try {
+    const response = await urlAvailable({ url: value });
+    setAvailablestatus(response.data.available);
+  } catch (error) {
+    console.error(error);
+    setAvailablestatus(false);
+  }
+};
+
+
+
+
   const handleSubmit = async (e:React.SubmitEvent<HTMLFormElement>) =>{
       e.preventDefault()
       const workspaceForm  = {
@@ -72,7 +99,7 @@ export default function CreateWorkspace() {
       const onBoardStatus = await toggleOnBoardStatus()
       console.log(onBoardStatus);
       if(response.success){
-        navigate(`/workspace/${workspaceUrl}`,{replace:true})
+        navigate(`/workspace/${workspaceUrl}/home`,{replace:true})
       }
 
   }
@@ -154,42 +181,66 @@ export default function CreateWorkspace() {
           </div>
           {/* WORKSPACE URL */}
             <div className="mb-6">
-              <div className="flex items-center justify-between mb-2">
-                <label className="block text-sm font-medium text-gray-700">
-                  Workspace URL *
-                </label>
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center gap-2">
+                    <label className="block text-sm font-medium text-gray-700">
+                      Workspace URL *
+                    </label>
 
-                <span className="text-xs text-green-600">
-                  {availableStatus?"available":"not available"}
-                </span>
+                    <div className="relative group">
+                      <AlertTriangle
+                        size={16}
+                        className="text-amber-600 cursor-help"
+                      />
 
-                
+                      <div
+                        className="
+                          absolute left-6 top-1/2 -translate-y-1/2
+                          w-64 rounded-lg bg-black px-3 py-2
+                          text-xs text-white shadow-lg
+                          opacity-0 invisible
+                          group-hover:opacity-100
+                          group-hover:visible
+                          transition-all duration-200
+                          z-50
+                        "
+                      >
+                        Choose a strong and unique workspace URL.
+                        This URL will be used by members to access your workspace.
+                      </div>
+                    </div>
+                  </div>
+
+                  <span
+                    className={`text-xs ${
+                      availableStatus
+                        ? "text-green-600"
+                        : "text-red-500"
+                    }`}
+                  >
+                    {availableStatus ? "available" : "not available"}
+                  </span>
+                </div>
+
+                <div className="flex items-center border border-gray-200 rounded-xl px-4 py-3 transition focus-within:border-black">
+                  <span className="text-gray-400 text-sm mr-1 select-none">
+                    /
+                  </span>
+
+                  <input
+                    type="text"
+                    value={workspaceUrl}
+                      
+                    onChange={handleUrlChange}
+                    
+                    className="flex-1 outline-none placeholder-gray-400 focus:placeholder-transparent"
+                  />
+                </div>
+
+                <p className="mt-2 text-xs text-gray-400">
+                  This URL will be used to access your workspace.
+                </p>
               </div>
-
-              <div className="flex items-center border border-gray-200 rounded-xl px-4 py-3 transition focus-within:border-black">
-                <span className="text-gray-400 text-sm mr-1 select-none">
-                  /
-                </span>
-
-                <input
-                  type="text"
-                  value={workspaceUrl}
-                  onChange={(e) =>
-                    setWorkspaceUrl(
-                      e.target.value
-                        .toLowerCase()
-                        .replace(/[^a-z0-9-]/g, "")
-                    )
-                  }
-                  
-                  className="flex-1 outline-none placeholder-gray-400 focus:placeholder-transparent"
-                />
-              </div>
-
-              <p className="mt-2 text-xs text-gray-400">
-                This URL will be used to access your workspace.
-              </p>
-            </div>
 
           {/* WORKSPACE TYPE */}
           <div className="mb-6">

@@ -7,7 +7,6 @@ import { User } from "../models/user.model.js";
 import mongoose from "mongoose";
 import { env } from "../utils/env.js";
 
-
 export const urlAvailable = AsyncHandler(async (req:Request,res:Response) =>{
         const {url} = req.body;
         
@@ -28,19 +27,24 @@ export const urlAvailable = AsyncHandler(async (req:Request,res:Response) =>{
 })
 
 export const createWorkspace = AsyncHandler(async (req:Request,res:Response)=>{
-    const {name,workspaceId,workspaceType,description} = req.body;
+    const {name,workspaceId,password,workspaceType,description} = req.body;
     
     const owner:mongoose.Types.ObjectId = req.user!._id;
-    
+    const member:mongoose.Types.ObjectId = owner
+
     const workspace = await Workspace.create({
         name,
         workspaceId,
         workspaceType,
         description,
-        owner
+        owner,
+        members:[member]
     })
+
+
     const user = await User.findById(owner);
     user!.workspaceId = workspaceId
+
     await user!.save()
     res.status(200).json(
         new ApiResponse(
@@ -77,8 +81,12 @@ export const joinWorkspace = AsyncHandler(async (req:Request,res:Response)=>{
         const user = await User.findById(userId)
 
         const {workspaceId} = req.body
-        user!.workspaceId = workspaceId
+        
+        const workspace = await Workspace.findOne({workspaceId:workspaceId})
+        workspace?.members.push(userId)
 
+        user!.workspaceId = workspaceId
+        await workspace!.save()
         await user!.save()
 
         res.status(200).json(
@@ -91,6 +99,7 @@ export const getWorkSpaceName = AsyncHandler(async (req:Request,res:Response)=>{
     const workspace = await Workspace.findOne({workspaceId:workspaceId})
     if(!workspace){
         new ApiError(400,"workspace not found")
+        return
     }
     res.status(200).json(
         new ApiResponse(
@@ -99,4 +108,17 @@ export const getWorkSpaceName = AsyncHandler(async (req:Request,res:Response)=>{
             "here is the workspace name"
         )
     )
+})
+
+export const getMembers = AsyncHandler(async (req:Request,res:Response)=>{
+    const workspaceId = req.params.workspaceId as string
+    const workspace = await Workspace.findOne({workspaceId:workspaceId!}).populate("members")
+
+    res.status(200).json(
+       new ApiResponse( 200,
+        workspace,
+        "members")
+    )
+    
+
 })

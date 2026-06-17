@@ -51,13 +51,18 @@ export default function Tasks() {
         const response = await getTasks(workspaceId);
         setActiveTasks(response.data.activeTasks || []);
         setCompletedTasks(response.data.completedTasks || []);
-      } catch (error) {
-        console.error("Initial database data fetch failed:", error);
-      }
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (error:any) {
+            const status = error.response.status;
+            
+            if (status === 403 || status === 404) {
+              navigate('/access-denied',{replace:true})
+            }
+        }
     };
 
     fetchTasks();
-  }, [workspaceId]);
+  }, [workspaceId,navigate]);
 
   const handleCreateTask = async (newTaskData: { task: string; description: string }) => {
     try {

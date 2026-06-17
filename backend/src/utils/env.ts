@@ -1,7 +1,9 @@
 import dotenv from 'dotenv'
-import { access } from 'node:fs'
 
-dotenv.config()
+dotenv.config(
+
+);
+
 
 export const env = {
     port: Number(process.env.PORT) ||  3001,

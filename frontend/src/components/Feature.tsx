@@ -1,12 +1,9 @@
-
 import { motion } from "framer-motion";
 import {
   Users,
   PenLine,
   CheckSquare,
   MessageSquare,
-  FolderOpen,
-  Lock,
 } from "lucide-react";
 
 const features = [
@@ -33,18 +30,6 @@ const features = [
     title: "Live chat",
     description:
       "Channels, threads, and direct messages linked directly to the work they're about.",
-  },
-  {
-    icon: FolderOpen,
-    title: "Workspace hub",
-    description:
-      "One place for docs, links, and pinned resources your whole team can find instantly.",
-  },
-  {
-    icon: Lock,
-    title: "Permissions & access",
-    description:
-      "Workspace-level roles so guests see what they need and admins stay in control.",
   },
 ];
 
@@ -78,7 +63,7 @@ const FeaturesSection = () => {
         </h2>
 
         {/* Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-white/10 rounded-2xl overflow-hidden border border-white/10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-px bg-white/10 rounded-2xl overflow-hidden border border-white/10">
           {features.map(
             ({ icon: Icon, title, description }, index) => (
               <motion.div
@@ -131,4 +116,3 @@ const FeaturesSection = () => {
 };
 
 export default FeaturesSection;
-

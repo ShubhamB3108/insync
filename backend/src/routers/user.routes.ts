@@ -1,5 +1,5 @@
 import { Router } from "express";
-import {registerUser,loginUser,refreshAccessToken, logoutUser} from '../controllers/user.controller.js'
+import {registerUser,loginUser,refreshAccessToken, logoutUser, getUserDetails} from '../controllers/user.controller.js'
 
 import { verifyJWT } from "../middlewares/auth.middleware.js";
 const userRoute = Router();
@@ -12,8 +12,7 @@ userRoute.route('/current-user').get(verifyJWT,(req,res)=>{
         message:"jwt working"
     })
 })
-
+userRoute.route('/user-details').get(verifyJWT,getUserDetails)
 userRoute.route('/refresh-token').post(refreshAccessToken)
-userRoute.route('/logout').post(verifyJWT,logoutUser)
 
 export default userRoute
