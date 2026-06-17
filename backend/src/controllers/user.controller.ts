@@ -7,7 +7,6 @@ import  { Types } from "mongoose";
 import jwt, { type JwtPayload } from 'jsonwebtoken'
 import { env } from "../utils/env.js";
 
-
 const generateAccessAndRefreshTokens = async(userId:Types.ObjectId)=>{
     try{
         const user = await User.findById(userId);
@@ -50,7 +49,8 @@ export const refreshAccessToken = AsyncHandler(async (req:Request,res:Response)=
    const options = {
         httpOnly:true,
         secure:true,
-        samesite: "none"
+        samesite: "none",
+        domain : "insync-taupe.vercel.app"
     }
 
    res.status(200)
@@ -135,7 +135,8 @@ export const registerUser = AsyncHandler(
    const options = {
         httpOnly:true,
         secure:true,
-        samesite: "none"
+        samesite: "none",
+        domain : "insync-taupe.vercel.app"
     }
 
     res
@@ -179,7 +180,8 @@ export const loginUser  = AsyncHandler(async (req:Request<{},{}, LoginBody>,res:
     const options = {
         httpOnly:true,
         secure:true,
-        samesite: "none"
+        samesite: "none",
+        domain : "insync-taupe.vercel.app"
     }
 
     res.status(200)
