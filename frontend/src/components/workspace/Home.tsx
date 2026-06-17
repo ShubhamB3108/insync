@@ -78,8 +78,8 @@ export default function HomeDashboard(): JSX.Element {
           setBoardsCount(boardCnt.length);
           setMembers(res.data.members.length);
           
-        } catch (error: any) {
-          const status = error?.response?.status;
+        } catch (error) {
+          const status = error!.response.status;
           if (status === 403 || status === 404) {
             navigate('/access-denied', { replace: true });
           }
