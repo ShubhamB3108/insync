@@ -107,15 +107,15 @@ export default function CreateWorkspace() {
   return (
 
 
-    <div className="min-h-screen flex bg-[#0f1714] overflow-hidden">
+    <div className="min-h-screen flex flex-col lg:flex-row bg-[#0f1714] overflow-y-auto lg:overflow-hidden">
       {/* LEFT SIDE */}
-      <div className="flex-1 flex flex-col justify-between px-20 py-12">
+      <div className="hidden lg:flex flex-1 flex-col justify-between px-20 py-12">
         <div>
           <Insynclogo className="text-white" />
         </div>
 
         <div>
-          <h1 className="text-[84px] leading-[0.95] font-extrabold text-white">
+          <h1 className="text-5xl xl:text-[84px] leading-[0.95] font-extrabold text-white">
             Create your
             <br />
             workspace.
@@ -128,19 +128,15 @@ export default function CreateWorkspace() {
         </div>
 
         <div className="flex gap-6 text-sm text-gray-500">
-          <button className="hover:text-white transition">
-            Terms
-          </button>
-
-          <button className="hover:text-white transition">
-            Privacy
-          </button>
+          
         </div>
       </div>
-
+    <div className="w-full max-w-xl mb-6 lg:hidden">
+        <Insynclogo className="text-white" />
+      </div>
       {/* RIGHT SIDE */}
-      <form className="flex items-center justify-center p-8" onSubmit={handleSubmit}>
-        <div className="w-162.5 bg-white rounded-3xl shadow-2xl p-8">
+      <form className="flex items-center justify-center p-4 sm:p-8 w-full" onSubmit={handleSubmit}>
+        <div className="w-full max-w-xl bg-white rounded-2xl sm:rounded-3xl shadow-2xl p-6 sm:p-8">
           {/* HEADER */}
           <div className="flex items-start justify-between mb-6">
             <div>
@@ -248,7 +244,7 @@ export default function CreateWorkspace() {
               Workspace Type *
             </label>
 
-            <div className="grid grid-cols-4 gap-3">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
               {WORKSPACE_TYPES.map((type) => (
                 <button
                   key={type.id}
