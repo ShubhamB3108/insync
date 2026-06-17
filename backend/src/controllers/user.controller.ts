@@ -49,8 +49,8 @@ export const refreshAccessToken = AsyncHandler(async (req:Request,res:Response)=
    const options = {
         httpOnly:true,
         secure:true,
-        samesite: "none",
-        domain : "insync-taupe.vercel.app"
+        sameSite: "none" as const,
+        
     }
 
    res.status(200)
@@ -67,8 +67,7 @@ export const refreshAccessToken = AsyncHandler(async (req:Request,res:Response)=
 
     )
    )
-   .cookie("accessToken",userAccessToken,options)
-   .cookie("refreshToken",userRefreshToken,options)
+
 })
 
 
@@ -135,8 +134,8 @@ export const registerUser = AsyncHandler(
    const options = {
         httpOnly:true,
         secure:true,
-        samesite: "none",
-        domain : "insync-taupe.vercel.app"
+        sameSite: "none" as const,
+        
     }
 
     res
@@ -180,8 +179,8 @@ export const loginUser  = AsyncHandler(async (req:Request<{},{}, LoginBody>,res:
     const options = {
         httpOnly:true,
         secure:true,
-        samesite: "none",
-        domain : "insync-taupe.vercel.app"
+        sameSite: "none" as const,
+        
     }
 
     res.status(200)
@@ -206,7 +205,7 @@ export const logoutUser = AsyncHandler(async (req:Request,res:Response):Promise<
         const options = {
         httpOnly:true,
         secure:true,
-        samesite: "none"
+        sameSite: "none" as const
     }
 
         res.status(200)
