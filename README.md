@@ -1,6 +1,6 @@
 # 🚀 inSync
 
-inSync is a collaborative workspace platform designed to help teams work together in real time. It combines task management, collaborative whiteboards, team chat, and AI-powered assistance into a single workspace.
+inSync is a collaborative workspace platform designed to help teams work together in real time. It combines task management, collaborative whiteboards, team chat.
 
 ## ✨ Features
 
@@ -89,12 +89,14 @@ inSync/
 │   │   └── socket/
 │
 └── README.md
+```
+
 ## ⚙️ Installation
 
 ### 1️⃣ Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/inSync.git
+git clone https://github.com/your-username/insync.git
 cd inSync
 ```
 
@@ -600,10 +602,3 @@ Socket.io powers:
 }
 ```
 
-
-```json
-{
-  "success": false,
-  "message": "Something went wrong"
-}
-```
